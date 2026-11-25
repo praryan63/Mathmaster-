@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <include domain="database" path="math_master.db" />
+    <include domain="sharedpref" path="math_master_settings.preferences.xml" />
+</full-backup-content>

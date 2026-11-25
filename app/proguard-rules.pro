@@ -1,0 +1,1 @@
+-keep class com.mathmaster.app.data.local.entity.** { *; }
