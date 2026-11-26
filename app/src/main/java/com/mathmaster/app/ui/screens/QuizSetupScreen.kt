@@ -1,6 +1,7 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.mathmaster.app.ui.screens
 
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

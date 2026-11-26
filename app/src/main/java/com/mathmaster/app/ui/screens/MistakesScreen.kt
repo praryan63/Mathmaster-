@@ -1,6 +1,7 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.mathmaster.app.ui.screens
 
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
