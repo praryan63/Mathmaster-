@@ -1,5 +1,7 @@
 package com.mathmaster.app.ui.common
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -113,7 +115,7 @@ fun AppTopBar(
         if (onBack != null) {
             IconButton(onClick = onBack) {
                 Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(R.string.home)
                 )
             }
@@ -254,7 +256,7 @@ fun EmptyState(
 @Composable
 fun MathLogo(size: androidx.compose.ui.unit.Dp = 120.dp) {
     Canvas(modifier = Modifier.size(size)) {
-        val s = size.minDimension
+        val s = this.size.minDimension
         val padding = s * 0.04f
         drawRoundRect(
             color = Brand,
