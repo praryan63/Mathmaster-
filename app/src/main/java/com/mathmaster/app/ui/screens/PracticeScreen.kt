@@ -132,7 +132,8 @@ fun PracticeScreen(
             value = state.input,
             onValueChange = viewModel::onInputChange,
             onSubmit = { viewModel.submit() },
-            enabled = state.feedback == FeedbackKind.NONE
+            enabled = state.feedback == FeedbackKind.NONE,
+            showYesNo = question.answer.trim().lowercase() in listOf("yes", "no")
         )
 
         if (state.feedback != FeedbackKind.NONE) {

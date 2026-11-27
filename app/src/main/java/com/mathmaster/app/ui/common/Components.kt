@@ -1,5 +1,9 @@
 package com.mathmaster.app.ui.common
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.foundation.Canvas
@@ -203,7 +207,7 @@ fun Chip(text: String, color: Color = MaterialTheme.colorScheme.primary) {
 }
 
 @Composable
-fun AnswerField(
+fun AnswerFieldOld(
     value: String,
     onValueChange: (String) -> Unit,
     onSubmit: () -> Unit,
@@ -293,4 +297,80 @@ fun LinearProgressIndicatorCompat(progress: Float, modifier: Modifier = Modifier
         color = MaterialTheme.colorScheme.primary,
         trackColor = MaterialTheme.colorScheme.surfaceVariant
     )
+}
+
+@Composable
+fun AnswerField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onSubmit: () -> Unit,
+    enabled: Boolean = true,
+    label: String = "Your answer",
+    showYesNo: Boolean = false
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp)
+                .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(16.dp))
+                .padding(horizontal = 16.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            if (value.isEmpty()) {
+                Text(
+                    label,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            } else {
+                Text(value, style = MaterialTheme.typography.headlineSmall)
+            }
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        if (showYesNo) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                PadKey("Yes", enabled) { onValueChange("yes") }
+                PadKey("No", enabled) { onValueChange("no") }
+            }
+        } else {
+            val rows = listOf(
+                listOf("7", "8", "9", "⌫"),
+                listOf("4", "5", "6", "/"),
+                listOf("1", "2", "3", "-"),
+                listOf("0", ".", "C", "")
+            )
+            rows.forEachIndexed { index, keys ->
+                if (index > 0) Spacer(modifier = Modifier.height(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                    keys.forEach { key ->
+                        if (key.isEmpty()) {
+                            Spacer(modifier = Modifier.weight(1f))
+                        } else {
+                            PadKey(key, enabled) {
+                                when (key) {
+                                    "⌫" -> onValueChange(value.dropLast(1))
+                                    "C" -> onValueChange("")
+                                    else -> onValueChange(value + key)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun RowScope.PadKey(label: String, enabled: Boolean, onClick: () -> Unit) {
+    OutlinedButton(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = Modifier.weight(1f).height(48.dp),
+        shape = RoundedCornerShape(14.dp),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Text(label, style = MaterialTheme.typography.titleLarge)
+    }
 }
